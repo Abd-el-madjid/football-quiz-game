@@ -1,0 +1,286 @@
+{% load static %}
+
+<!-- <link href="{% static 'css/k.css' %}" rel="stylesheet">
+    <script src="{% static 'js/k.js' %}"></script> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+
+    <!-- images-->
+
+
+    <!-- fonts -->
+    <link href="{% static 'css/font.css' %}" rel="stylesheet">
+
+    <!-- fontawesome 5 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+    <!-- bootstrap 5 -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Custom Css Files -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/animation.css' %}" rel="stylesheet">
+
+
+    <!--Result Css-->
+    <link href="{% static 'css/result_style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <main class="overflow-hidden">
+
+        <!-- step count -->
+
+        <div class="row">
+            <div class="col-md-8 tab-100">
+
+
+                <!-- forms -->
+                <form method="post" novalidate>
+                <div class="wrapper show-section">
+                
+                    <!-- step 1 -->
+                    <section class="steps">
+                
+                        <!-- QUestion -->
+                        <div class="quiz-question">
+                            The islands with Coral Covered Surfaces in Bay of Bengal are
+                        </div>
+                
+                        <!-- form -->
+                        <fieldset id="step1">
+                            <div class="radio-field bounce-left">
+                                <input type="radio" name="op1" value="Andaman islands">
+                                <label class="op1">Andaman islands</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-100">
+                                <input type="radio" name="op1" value="Nicobar islands">
+                                <label class="op2">Nicobar islands</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op1" value="both (a) and (b)">
+                                <label class="op3">both (a) and (b)</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op1" value="both (a) and (b)">
+                                <label class="op3">both (a) and (b)</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op1" value="both (a) and (b)">
+                                <label class="op3">both (a) and (b)</label>
+                            </div>
+                        </fieldset>
+                
+                        <!-- next previous Button -->
+                        <div class="next-prev">
+                            <button class="next" type="button" id="step1btn">next question<i
+                                    class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </section>
+                
+                    <!-- step 2 -->
+                    <section class="steps">
+                
+                        <!-- QUestion -->
+                        <div class="quiz-question">
+                            The Largest Country of the World by Geographical Area is
+                        </div>
+                
+                        <!-- form -->
+                        <fieldset id="step2">
+                            <div class="radio-field bounce-left">
+                                <input type="radio" name="op2" value="Vatican City">
+                                <label class="op1">Vatican City</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-100">
+                                <input type="radio" name="op2" value="Nicobar islands">
+                                <label class="op2">Nicobar islands</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op2" value="Russia">
+                                <label class="op3">Russia</label>
+                            </div>
+                        </fieldset>
+                
+                        <!-- next previous Button -->
+                        <div class="next-prev">
+                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
+                                question</button>
+                            <button class="next" type="button" id="step2btn">next question<i
+                                    class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </section>
+                
+                    <!-- step 3 -->
+                    <section class="steps">
+                
+                        <!-- QUestion -->
+                        <div class="quiz-question">
+                            How long is the border between the United States and Canada?
+                        </div>
+                
+                        <!-- form -->
+                        <fieldset id="step3">
+                            <div class="radio-field bounce-left">
+                                <input type="radio" name="op3" value="3,525 miles">
+                                <label class="op1">3,525 miles</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-100">
+                                <input type="radio" name="op3" value="5,525 miles">
+                                <label class="op2">5,525 miles</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op3" value="4,525 miles">
+                                <label class="op3">4,525 miles</label>
+                            </div>
+                        </fieldset>
+                
+                        <!-- next previous Button -->
+                        <div class="next-prev">
+                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
+                                question</button>
+                            <button class="next" type="button" id="step3btn">next question<i
+                                    class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </section>
+                
+                    <!-- step 4 -->
+                    <section class="steps">
+                
+                        <!-- QUestion -->
+                        <div class="quiz-question">
+                            In which US state did the Scopes Monkey Trial happen?
+                        </div>
+                
+                        <!-- form -->
+                        <fieldset id="step4">
+                            <div class="radio-field bounce-left">
+                                <input type="radio" name="op4" value="Maryland">
+                                <label class="op1">Maryland</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-100">
+                                <input type="radio" name="op4" value="Indiana">
+                                <label class="op2">Indiana</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op4" value="Tennessee">
+                                <label class="op3">Tennessee</label>
+                            </div>
+                        </fieldset>
+                
+                        <!-- next previous Button -->
+                        <div class="next-prev">
+                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
+                                question</button>
+                            <button class="next" type="button" id="step4btn">next question<i
+                                    class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </section>
+                
+                    <!-- step 5 -->
+                    <section class="steps">
+                
+                        <!-- QUestion -->
+                        <div class="quiz-question">
+                            In which museum can you find Leonardo Da Vinci's Mona Lisa?
+                        </div>
+                
+                        <!-- form -->
+                        <fieldset id="step5">
+                            <div class="radio-field bounce-left">
+                                <input type="radio" name="op5" value="Le Louvre">
+                                <label class="op1">Le Louvre</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-100">
+                                <input type="radio" name="op5" value="Uffizi Museum">
+                                <label class="op2">Uffizi Museum</label>
+                            </div>
+                            <div class="radio-field bounce-left delay-200">
+                                <input type="radio" name="op5" value="British Museum">
+                                <label class="op3">British Museum</label>
+                            </div>
+                        </fieldset>
+                
+                        <!-- next previous Button -->
+                        <div class="next-prev">
+                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
+                                question</button>
+                            <button class="next" type="button" id="sub">Submit<i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </section>
+                </div>
+                </form>
+            </div>
+            <div class="col-md-4 tab-none">
+                <img class="avatar" src="{% static 'avatar.png' %}" alt="avatar">
+            </div>
+        </div>
+        <!-- result -->
+        <div class="loadingresult">
+            <img src=" {% static 'loading.gif' %}" alt="loading">
+        </div>
+        <div class="result_page">
+            <div class="result_inner">
+                <div class="result_inner2">
+                    <h2>Knowledge Check</h2>
+                    <div class="u_result">
+                        <div class="u_score">Your Score: </div>
+                        <div class="u_prcnt">
+                            20%
+                        </div>
+                        <span>20 Points</span>
+                    </div>
+                    <div class="p_result">
+                        <div class="p_score">Passing Score: </div>
+                        <div class="p_prcnt">
+                            80%
+                        </div>
+                        <span>80 Points</span>
+                    </div>
+                    <div class="line"></div>
+                    <div class="result_show">
+
+                        <div class="pass_check" id="reload_game">
+                            <i class="fa-solid fa-rotate-right"></i> start new game
+
+                        </div>
+                        <div class="result_msg">
+                            Better Luck Next Time!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- rectangle -->
+                <img class="behind_bg" src="{% static 'bh-clip.png' %}" alt="rectangle">
+            </div>
+        </div>
+    </main>
+
+    <div id="error"></div>
+    <!-- bootstrap 5 -->
+    <script src="{% static 'js/Bootstrap/bootstrap.min.js' %}"></script>
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
+
+    <!-- Result JS -->
+    <script src="{% static 'js/result.js' %}"></script>
+
+    <!-- Custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,210 +1,265 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sen:wght@400;700;800&display=swap');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
+:root {
+    --primary-color: rgb(12, 75, 129);
+    --secondary-color: rgb(210, 210, 210);
+    --text-color: rgb(255, 255, 255);
+    --field-color: rgb(255, 255, 255);
+    --black-color: rgb(52, 52, 52);
+
 }
 
-body{
-    background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100vh;
-}
 
-.container{
-    background-color: #fff;
-    border-radius: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
-    position: relative;
-    overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-height: 480px;
-}
 
-.container p{
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.3px;
-    margin: 20px 0;
-}
-
-.container span{
-    font-size: 12px;
-}
-
-.container a{
-    color: #333;
-    font-size: 13px;
-    text-decoration: none;
-    margin: 15px 0 10px;
-}
-
-.container button{
-    background-color: #512da8;
-    color: #fff;
-    font-size: 12px;
-    padding: 10px 45px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.container button.hidden{
-    background-color: transparent;
-    border-color: #fff;
-}
-
-.container form{
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 40px;
-    height: 100%;
-}
-
-.container input{
-    background-color: #eee;
-    border: none;
-    margin: 8px 0;
-    padding: 10px 15px;
-    font-size: 13px;
-    border-radius: 8px;
+body {
+    font-family: "Jost";
     width: 100%;
-    outline: none;
 }
 
-.form-container{
-    position: absolute;
-    top: 0;
-    height: 100%;
-    transition: all 0.6s ease-in-out;
+main {
+    background-image: url(../images/bg.png);
+    background-color: rgb(26, 59, 137);
+    background-size: cover;
+    width: 100%;
+    max-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.sign-in{
-    left: 0;
-    width: 50%;
-    z-index: 2;
+
+
+
+.step-bar {
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+    background-color: rgb(26, 59, 137);
 }
 
-.container.active .sign-in{
-    transform: translateX(100%);
-}
-
-.sign-up{
-    left: 0;
-    width: 50%;
-    opacity: 0;
-    z-index: 1;
-}
-
-.container.active .sign-up{
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-    animation: move 0.6s;
-}
-
-@keyframes move{
-    0%, 49.99%{
-        opacity: 0;
-        z-index: 1;
-    }
-    50%, 100%{
-        opacity: 1;
-        z-index: 5;
-    }
-}
-
-.social-icons{
-    margin: 20px 0;
-}
-
-.social-icons a{
-    border: 1px solid #ccc;
-    border-radius: 20%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 3px;
-    width: 40px;
-    height: 40px;
-}
-
-.toggle-container{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 50%;
-    height: 100%;
+.step-bar .bar {
+    background-color: var(--secondary-color);
+    width: 18%;
+    height: 30px;
     overflow: hidden;
-    transition: all 0.6s ease-in-out;
-    border-radius: 150px 0 0 100px;
+
+}
+
+.step-bar .bar .fill {
+    background-color: var(--primary-color);
+    transition: 0.5s linear;
+    width: 0;
+    height: 100%;
+}
+
+form {
+
+    display: grid;
+    height: 100%;
+}
+
+.wrapper {
+    padding: 20px 0 20px 0;
+    width: 85%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.quiz-question {
+    border: SOLID 2px var(--field-color);
+    border-radius: 10px;
+    background-color: transparent;
+    width: 100%;
+    height: 100px;
+    position: relative;
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 0 40px 0 0;
+    max-height: 200px;
+}
+
+.quiz-question::before {
+    content: "";
+    display: inline-block;
+    height: 102%;
+    min-width: 25px;
+    border-radius: 20px;
+    background-color: var(--field-color);
+    position: relative;
+    left: -2px;
+    margin-right: 40px;
+}
+
+fieldset {
+    min-height: 48%;
+    margin-bottom: 15px;
+    margin-top: 50px;
+    /* flex: 1; */
+    overflow-y: scroll;
+    max-height: 48%;
+}
+
+.radio-field {
+    border: 120px #FCE4EC;
+    width: 100%;
+    height: 75px;
+    position: relative;
+    margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.radio-field input {
+    -webkit-appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    border: solid 2px transparent;
+    transition: 0.5s;
+}
+
+.radio-field label {
+    font-size: 19px;
+    color: var(--black-color);
+    font-weight: bold;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.radio-field label::before {
+    content: "X";
+    width: 120px;
+    height: 100%;
+    display: inline-block;
+    background-color: var(--secondary-color);
+    overflow: hidden;
+    margin-right: 50px;
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    display: grid;
+    place-items: center;
+    transition: 0.5s;
+}
+
+.radio-field .op1::before {
+    content: "A";
+}
+
+.radio-field .op2::before {
+    content: "B";
+}
+
+.radio-field .op3::before {
+    content: "C";
+}
+
+.radio-field .op4::before {
+    content: "D";
+}
+
+.radio-field input:checked {
+    border-color: var(--primary-color);
+}
+
+.radio-field input:checked::before {
+    content: "";
+    position: absolute;
+    border-left: solid 3px var(--primary-color);
+    border-bottom: solid 3px var(--primary-color);
+    top: 35px;
+    right: 30px;
+    width: 25px;
+    height: 15px;
+    transform: rotate(-45deg);
+    opacity: 0;
     z-index: 1000;
 }
 
-.container.active .toggle-container{
-    transform: translateX(-100%);
-    border-radius: 0 150px 100px 0;
+.radio-field input:checked~label {
+    color: var(--primary-color);
 }
 
-.toggle{
-    background-color: #512da8;
-    height: 100%;
-    background: linear-gradient(to right, #5c6bc0, #512da8);
-    color: #fff;
-    position: relative;
-    left: -100%;
-    height: 100%;
-    width: 200%;
-    transform: translateX(0);
-    transition: all 0.6s ease-in-out;
+.radio-field input:checked~label::before {
+    background-color: var(--primary-color);
 }
 
-.container.active .toggle{
-    transform: translateX(50%);
-}
 
-.toggle-panel{
-    position: absolute;
-    width: 50%;
-    height: 100%;
+
+
+.next-prev {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 30px;
-    text-align: center;
-    top: 0;
-    transform: translateX(0);
-    transition: all 0.6s ease-in-out;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.toggle-left{
-    transform: translateX(-200%);
+.next-prev button {
+    border: solid 1px var(--field-color);
+    border-radius: 6px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 2px 21px 0px rgba(0, 0, 0, 0.03);
+    min-width: 234px;
+    height: 72px;
+    font-size: 18px;
+    color: rgb(124, 120, 120);
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.container.active .toggle-left{
-    transform: translateX(0);
+.next-prev .next {
+    background-color: var(--primary-color);
+    color: rgb(255, 255, 255);
+    border-color: transparent;
 }
 
-.toggle-right{
-    right: 0;
-    transform: translateX(0);
+.next-prev button i {
+    margin: 0 10px;
+    position: relative;
+    top: 1;
 }
 
-.container.active .toggle-right{
-    transform: translateX(200%);
+
+
+
+
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+
+
+
+.avatar {
+    width: 88%;
+    /* margin-top: 70px; */
+}
+
+#error div {
+    position: fixed;
+    top: 20px;
+    left: 20px;
 }
