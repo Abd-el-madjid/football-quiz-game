@@ -49,7 +49,7 @@
     position: relative;
     z-index: 999;
     width: 45%;
-    height: 70vh;
+    height: 70%;
 }
 
 .result_inner2 {
@@ -164,7 +164,7 @@
 .pass_check {
     background-color: rgb(237, 237, 237);
     height: 45px;
-    width: 190px;
+    width: 215px;
     border-radius: 50px;
     margin: 0 auto;
 }
@@ -283,4 +283,69 @@
     .p_prcnt {
         display: none;
     }
+}
+
+
+/* Add this CSS for the scrollable details section */
+.details-section {
+    max-height: 200px;
+    /* Set the maximum height as per your design */
+    overflow-y: auto;
+    /* Enable vertical scrollbar if content exceeds the max height */
+    margin-top: 20px;
+    /* Adjust the top margin as needed */
+}
+
+/* Style for the list items inside the details section */
+.list-group-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 16px;
+    /* Adjust font size as needed */
+    border: none;
+    /* Remove default list item borders */
+    padding: 8px;
+    /* Adjust padding as needed */
+}
+
+/* Style for the questions */
+.questionText {
+    font-weight: bold;
+    color: rgb(4, 4, 4);
+    /* Adjust the color as needed */
+}
+
+/* Style for the correct answers */
+.correctAnswer {
+    font-weight: bold;
+    color: green;
+    /* Adjust the color as needed */
+}
+
+/* Style for the chosen answers */
+.chosenAnswer {
+    font-weight: bold;
+    color: red;
+    /* Adjust the color as needed */
+}
+.letter{
+font-weight: bold;
+margin-right: 10px;
+margin-left: 8px;
+}
+
+.non{
+    display: none !important;
+}
+
+
+.close{
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+.close span {
+font-size: 35px;
 }

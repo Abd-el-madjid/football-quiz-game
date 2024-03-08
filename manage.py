@@ -1,5 +1,28 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+"""
+Django's command-line utility for administrative tasks.
+
+Usage:
+    ./manage.py <command> [options]
+
+Options:
+    <command>          The command to execute (e.g., runserver, makemigrations).
+    -h, --help         Show this help message and exit.
+    --settings=FILE    The Python path to a settings module, e.g., "myproject.settings".
+                      If this isn't provided, the DJANGO_SETTINGS_MODULE environment variable will be used.
+    --pythonpath=PATH  A directory to add to the Python path, e.g., "/home/user/myproject".
+
+Examples:
+    ./manage.py runserver
+    ./manage.py makemigrations
+    ./manage.py migrate
+
+For more information on Django management commands, see:
+https://docs.djangoproject.com/en/stable/ref/django-admin/
+
+For the latest version of this script and additional management commands, visit:
+https://github.com/django/django
+"""
 import os
 import sys
 

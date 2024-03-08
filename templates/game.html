@@ -1,7 +1,6 @@
 {% load static %}
 
-<!-- <link href="{% static 'css/k.css' %}" rel="stylesheet">
-    <script src="{% static 'js/k.js' %}"></script> -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +11,15 @@
     <title>Quiz</title>
 
     <!-- images-->
+    <style>
+        main {
+            background-image: url('{% static "bg_1.jpg" %}');
 
 
+        }
+    </style>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- fonts -->
     <link href="{% static 'css/font.css' %}" rel="stylesheet">
 
@@ -31,14 +37,59 @@
 
     <link href="{% static 'css/animation.css' %}" rel="stylesheet">
 
+    <link href="{% static 'css/bootstrap2.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet">
 
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
     <!--Result Css-->
     <link href="{% static 'css/result_style.css' %}" rel="stylesheet">
 
 </head>
 
 <body>
+    <header class="site-navbar py-4" role="banner">
 
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <div class="site-logo">
+                    <a href="{% url 'home' %}">
+                        <img src=" {% static 'logo.png' %}" alt="logo">
+
+                    </a>
+                </div>
+                <div class="ml-auto">
+                    <nav class="site-navigation position-relative text-right" role="navigation">
+                        <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown">
+                            <p>Welcome, {{ username }}!</p>
+
+                                </a>
+                                <div class="dropdown-menu non">
+                                    <a class="dropdown-item" href="{% url 'home' %}">Home</a>
+                                    <a class="dropdown-item" href="{% url 'game' %}">Start Game</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                </div>
+                            </li>
+                            {% if user.is_authenticated %}
+                                                        <li class="active"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+
+                            {% else %}
+                            {% endif %}
+
+                        </ul>
+                    </nav>
+
+                    <a href="#"
+                        class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span
+                            class="icon-menu h3 text-white"></span></a>
+                </div>
+            </div>
+        </div>
+
+    </header>
     <main class="overflow-hidden">
 
         <!-- step count -->
@@ -48,180 +99,59 @@
 
 
                 <!-- forms -->
-                <form method="post" novalidate>
-                <div class="wrapper show-section">
-                
-                    <!-- step 1 -->
-                    <section class="steps">
-                
-                        <!-- QUestion -->
-                        <div class="quiz-question">
-                            The islands with Coral Covered Surfaces in Bay of Bengal are
-                        </div>
-                
-                        <!-- form -->
-                        <fieldset id="step1">
-                            <div class="radio-field bounce-left">
-                                <input type="radio" name="op1" value="Andaman islands">
-                                <label class="op1">Andaman islands</label>
+                <form method="post" action="{% url 'game' %}" id="quiz-form" data-url="{% url 'game' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="quiz-form">
+
+                    <div class="wrapper show-section">
+                        {% for question in questions %}
+                        <section class="steps">
+                            <div class="quiz-question">
+                                {{ question.question_text }}
                             </div>
-                            <div class="radio-field bounce-left delay-100">
-                                <input type="radio" name="op1" value="Nicobar islands">
-                                <label class="op2">Nicobar islands</label>
+                            <fieldset id="question_{{ question.id }}">
+                                <div class="radio-field bounce-left">
+                                    <input type="radio" name="answer_{{ question.id }}" value="A">
+                                    <label class="op1">{{ question.option_a }}</label>
+                                </div>
+                                <div class="radio-field bounce-left">
+                                    <input type="radio" name="answer_{{ question.id }}" value="B">
+                                    <label class="op2">{{ question.option_b }}</label>
+                                </div>
+                                <div class="radio-field bounce-left">
+                                    <input type="radio" name="answer_{{ question.id }}" value="C">
+                                    <label class="op3">{{ question.option_c }}</label>
+                                </div>
+                                <div class="radio-field bounce-left">
+                                    <input type="radio" name="answer_{{ question.id }}" value="D">
+                                    <label class="op4">{{ question.option_d }}</label>
+                                </div>
+                            </fieldset>
+                            {% if forloop.first %}
+                            <div class="next-prev">
+                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question<i
+                                        class="fa-solid fa-arrow-right"></i></button>
                             </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op1" value="both (a) and (b)">
-                                <label class="op3">both (a) and (b)</label>
+                            {% elif forloop.last %}
+                            <div class="next-prev">
+                                <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>Previous
+                                    Question</button>
+                                <button class="next" type="submit" id="step{{ forloop.counter }}btn">Submit<i
+                                        class="fa-solid fa-arrow-right"></i></button>
                             </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op1" value="both (a) and (b)">
-                                <label class="op3">both (a) and (b)</label>
+                            {% else %}
+                            <div class="next-prev">
+                                <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>Previous
+                                    Question</button>
+                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question<i
+                                        class="fa-solid fa-arrow-right"></i></button>
                             </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op1" value="both (a) and (b)">
-                                <label class="op3">both (a) and (b)</label>
-                            </div>
-                        </fieldset>
-                
-                        <!-- next previous Button -->
-                        <div class="next-prev">
-                            <button class="next" type="button" id="step1btn">next question<i
-                                    class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </section>
-                
-                    <!-- step 2 -->
-                    <section class="steps">
-                
-                        <!-- QUestion -->
-                        <div class="quiz-question">
-                            The Largest Country of the World by Geographical Area is
-                        </div>
-                
-                        <!-- form -->
-                        <fieldset id="step2">
-                            <div class="radio-field bounce-left">
-                                <input type="radio" name="op2" value="Vatican City">
-                                <label class="op1">Vatican City</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-100">
-                                <input type="radio" name="op2" value="Nicobar islands">
-                                <label class="op2">Nicobar islands</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op2" value="Russia">
-                                <label class="op3">Russia</label>
-                            </div>
-                        </fieldset>
-                
-                        <!-- next previous Button -->
-                        <div class="next-prev">
-                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
-                                question</button>
-                            <button class="next" type="button" id="step2btn">next question<i
-                                    class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </section>
-                
-                    <!-- step 3 -->
-                    <section class="steps">
-                
-                        <!-- QUestion -->
-                        <div class="quiz-question">
-                            How long is the border between the United States and Canada?
-                        </div>
-                
-                        <!-- form -->
-                        <fieldset id="step3">
-                            <div class="radio-field bounce-left">
-                                <input type="radio" name="op3" value="3,525 miles">
-                                <label class="op1">3,525 miles</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-100">
-                                <input type="radio" name="op3" value="5,525 miles">
-                                <label class="op2">5,525 miles</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op3" value="4,525 miles">
-                                <label class="op3">4,525 miles</label>
-                            </div>
-                        </fieldset>
-                
-                        <!-- next previous Button -->
-                        <div class="next-prev">
-                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
-                                question</button>
-                            <button class="next" type="button" id="step3btn">next question<i
-                                    class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </section>
-                
-                    <!-- step 4 -->
-                    <section class="steps">
-                
-                        <!-- QUestion -->
-                        <div class="quiz-question">
-                            In which US state did the Scopes Monkey Trial happen?
-                        </div>
-                
-                        <!-- form -->
-                        <fieldset id="step4">
-                            <div class="radio-field bounce-left">
-                                <input type="radio" name="op4" value="Maryland">
-                                <label class="op1">Maryland</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-100">
-                                <input type="radio" name="op4" value="Indiana">
-                                <label class="op2">Indiana</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op4" value="Tennessee">
-                                <label class="op3">Tennessee</label>
-                            </div>
-                        </fieldset>
-                
-                        <!-- next previous Button -->
-                        <div class="next-prev">
-                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
-                                question</button>
-                            <button class="next" type="button" id="step4btn">next question<i
-                                    class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </section>
-                
-                    <!-- step 5 -->
-                    <section class="steps">
-                
-                        <!-- QUestion -->
-                        <div class="quiz-question">
-                            In which museum can you find Leonardo Da Vinci's Mona Lisa?
-                        </div>
-                
-                        <!-- form -->
-                        <fieldset id="step5">
-                            <div class="radio-field bounce-left">
-                                <input type="radio" name="op5" value="Le Louvre">
-                                <label class="op1">Le Louvre</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-100">
-                                <input type="radio" name="op5" value="Uffizi Museum">
-                                <label class="op2">Uffizi Museum</label>
-                            </div>
-                            <div class="radio-field bounce-left delay-200">
-                                <input type="radio" name="op5" value="British Museum">
-                                <label class="op3">British Museum</label>
-                            </div>
-                        </fieldset>
-                
-                        <!-- next previous Button -->
-                        <div class="next-prev">
-                            <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>last
-                                question</button>
-                            <button class="next" type="button" id="sub">Submit<i class="fa-solid fa-arrow-right"></i></button>
-                        </div>
-                    </section>
-                </div>
+                            {% endif %}
+                        </section>
+                        {% endfor %}
+                    </div>
                 </form>
+
             </div>
             <div class="col-md-4 tab-none">
                 <img class="avatar" src="{% static 'avatar.png' %}" alt="avatar">
@@ -231,34 +161,49 @@
         <div class="loadingresult">
             <img src=" {% static 'loading.gif' %}" alt="loading">
         </div>
-        <div class="result_page">
+        <div class="result_page  ">
             <div class="result_inner">
+                <div class="reload_game close"><span class="material-symbols-outlined">close</span></div>
                 <div class="result_inner2">
                     <h2>Knowledge Check</h2>
                     <div class="u_result">
                         <div class="u_score">Your Score: </div>
                         <div class="u_prcnt">
-                            20%
+                            <!-- Display the percentage or any additional information here -->
                         </div>
-                        <span>20 Points</span>
+                        <span class="u_score_point"></span>
                     </div>
-                    <div class="p_result">
-                        <div class="p_score">Passing Score: </div>
-                        <div class="p_prcnt">
-                            80%
-                        </div>
-                        <span>80 Points</span>
-                    </div>
+
                     <div class="line"></div>
                     <div class="result_show">
-
-                        <div class="pass_check" id="reload_game">
-                            <i class="fa-solid fa-rotate-right"></i> start new game
-
+                        <div class="pass_check reload_game" id="reload_game">
+                            <i class="fa-solid fa-rotate-right"></i> Start New Game
+                        </div>
+                        <div class="pass_check" id="show_result" style="margin-top: 10px;">
+                            Check Your Answer
                         </div>
                         <div class="result_msg">
                             Better Luck Next Time!
                         </div>
+
+                        <!-- Details section -->
+                        <div id="details-container" class="details-container non">
+                            <!-- Cloned templates will be appended here -->
+                        </div>
+
+                        <div id="details-section" class="details-section template non">
+                            <h3>Details:</h3>
+                            <!-- <ul class="list-group">
+                                <li class="list-group-item questionText">Question: Placeholder Question</li>
+                                <li class="list-group-item correctAnswer"><span
+                                        class="material-symbols-outlined">done</span> <span
+                                        class="letter correct_letter">A</span> Placeholder Correct Answer</li>
+                                <li class="list-group-item chosenAnswer"><span
+                                        class="material-symbols-outlined">close</span> <span
+                                        class="letter chosen_letter">A</span> Placeholder Chosen Answer</li>
+                            </ul> -->
+                        </div>
+
                     </div>
                 </div>
 
@@ -266,13 +211,17 @@
                 <img class="behind_bg" src="{% static 'bh-clip.png' %}" alt="rectangle">
             </div>
         </div>
+
     </main>
 
     <div id="error"></div>
+    <div class="main"></div>
     <!-- bootstrap 5 -->
     <script src="{% static 'js/Bootstrap/bootstrap.min.js' %}"></script>
 
     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
     <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
 
     <!-- Result JS -->
@@ -282,5 +231,38 @@
     <script src="{% static 'js/custom.js' %}"></script>
 
 </body>
+<script>
+    document.getElementById("navbarDropdown").addEventListener('click', function () {
+        // Toggle the "non" class for both divs
+        var dropdownMenu = document.querySelector(".dropdown-menu");
+        dropdownMenu.classList.toggle("non");
+    });</script>
+    
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<script type="text/javascript">
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert alert-error';
+    alertDiv.innerHTML = '<div class="icon__wrapper"><span class="material-symbols-outlined">error</span></div><p> {{ message|safe }}</p>';
+
+    const body = document.getElementById('body');
+    document.body.appendChild(alertDiv);
+    setTimeout(function () {
+        alertDiv.remove();
+    }, 3000);
+</script>
+{% else %}
+<script type="text/javascript">
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert alert-success';
+    alertDiv.innerHTML = '<div class="icon__wrapper"><span class="material-symbols-outlined">task_alt</span></div> <p>{{ message|safe }}</p>';
+    document.body.appendChild(alertDiv);
+
+    setTimeout(function () {
+        alertDiv.remove();
+    }, 3000);
+</script>
+{% endif %}
+{% endfor %}
 
 </html>

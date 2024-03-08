@@ -1,15 +1,29 @@
 # quiz_app/models.py
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
-
-class CustomUser(models.Model):
+class CustomUser(AbstractUser):
     name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)
+    
+    # Set USERNAME_FIELD to 'email'
+    USERNAME_FIELD = 'email'
+    
+    # Update REQUIRED_FIELDS to include 'email'
+    REQUIRED_FIELDS = ['name']
+
+    # Add the following lines to remove unnecessary fields
+    last_login = None
+    is_superuser = None
+    first_name = None
+    last_name = None
+    is_staff = None
+    is_active = None
+    date_joined = None
 
     def __str__(self):
-        return self.name
-
+        return self.email
+    
 class Question(models.Model):
     question_text = models.TextField()
     option_a = models.CharField(max_length=255)
@@ -24,7 +38,7 @@ class Question(models.Model):
 class Game(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     score = models.IntegerField()
-    game_date = models.DateField()
+    game_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return f"Game {self.id} - User: {self.user.name}, Score: {self.score}, Date: {self.game_date}"

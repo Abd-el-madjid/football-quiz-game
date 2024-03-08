@@ -1,0 +1,243 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .hero.overlay {
+            background-image: url('{% static "bg_3.jpg" %}');
+        }
+    </style>
+
+    <title>Soccer &mdash; Website by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{% static 'fonts/icomoon/style.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/bootstrap2.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+    <div class="site-wrap">
+
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+
+
+        <header class="site-navbar py-4" role="banner">
+
+            <div class="container">
+                <div class="d-flex align-items-center">
+                    <div class="site-logo">
+                        <a href="{% url 'home' %}">
+                            <img src=" {% static 'logo.png' %}" alt="logo">
+
+                        </a>
+                    </div>
+                    <div class="ml-auto">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                                <!-- ... (previous HTML code) ... -->
+                                {% if user.is_authenticated %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown">
+                                        Welcome,
+                                    </a>
+                                    <div class="dropdown-menu non">
+                                        <a class="dropdown-item" href="{% url 'home' %}">Home</a>
+                                        <a class="dropdown-item" href="{% url 'game' %}">Start Game</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                    </div>
+                                </li>
+                                {% else %}
+                                <li class="active"><a href="{% url 'home' %}" class="nav-link">home</a></li>
+                                
+                                <li><a href="{% url 'login_signup' %}" class="nav-link">sign up</a></li>
+                                <li><a href="{% url 'login_signup' %}" class="nav-link">sign in</a></li>
+                                <!-- ... (remaining HTML code) ... -->
+                                {% endif %}
+                              
+                                <p></p>
+                               
+
+
+                            </ul>
+                        </nav>
+
+                        <a href="#"
+                            class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right text-white"><span
+                                class="icon-menu h3 text-white"></span></a>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+
+        <div class="hero overlay">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 ml-auto">
+                        
+                            <h1 class="text-white">Soccer Smarts Challenge</h1>
+                            <p>Unlock the depths of your football knowledge with our thrilling quiz! Dive into questions about your beloved teams,
+                                star players, and the beautiful game itself.</p>
+                        <div id="date-countdown"></div>
+                        <p>
+                            <a href="{% url 'game' %}" class="btn btn-primary py-3 px-4 mr-3">Start the Challenge</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="container   ">
+            <div class="row team-vs p-4">
+                <div class="col-lg-6 ">
+                    <div class="widget-next-match bg-dark">
+                        <div class="widget-title">
+                            <h3>board games</h3>
+                        </div>
+
+
+                        <div class="text-left widget-vs-contents mb-4" style="margin-top: 20px; margin-left: 10px; ">
+                            <h4>Immerse and captivate every football aficionado</h4>
+                            <p class="mb-5">
+                                <span class="d-block">Engage enthusiasts at their own pace, from any device.</span>
+
+                            </p>
+                            <h4>Quiz gamification for football enthusiasts</h4>
+                            <p class="mb-5">
+                                <span class="d-block">A dynamic leaderboard showcasing the best 5 scores, themed
+                                    challenges, sound
+                                    effects, and more to fuel the excitement of
+                                    the game</span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+                    <div class="widget-next-match bg-dark">
+                        <table class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>P</th>
+                                    <th>Game</th>
+
+                                    <th>PTS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {% for user_score in user_scores %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><strong class="text-white">{{ user_score.game_date }}</strong></td>
+                                    <td>{{ user_score.score }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- .site-section -->
+
+
+
+
+
+    </div>
+    <!-- .site-wrap -->
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+
+    <script src="{% static 'js/aos.js' %}"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-pzjw8RX+PKNRTF5/5eE3Fp93pKs3kWyxIaPbOD5+XsI2z+VItJ5vme/VfXp0xZZ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyLDO6ShfWl3SL9X9zSBJiI6Ddi7E931S"
+        crossorigin="anonymous"></script>
+
+
+</body>
+{% for message in messages %}
+{% if message.tags == 'error' %}
+<script type="text/javascript">
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert alert-error';
+    alertDiv.innerHTML = '<div class="icon__wrapper"><span class="material-symbols-outlined">error</span></div><p> {{ message|safe }}</p>';
+
+    const body = document.getElementById('body');
+    document.body.appendChild(alertDiv);
+    setTimeout(function () {
+        alertDiv.remove();
+    }, 10000);
+</script>
+{% else %}
+<script type="text/javascript">
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'custom-alert alert-success';
+    alertDiv.innerHTML = '<div class="icon__wrapper"><span class="material-symbols-outlined">task_alt</span></div> <p>{{ message|safe }}</p>';
+    document.body.appendChild(alertDiv);
+
+    setTimeout(function () {
+        alertDiv.remove();
+    }, 3000);
+</script>
+{% endif %}
+{% endfor %}
+
+</html>
