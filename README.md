@@ -63,6 +63,7 @@ Run Migrations:
 python manage.py makemigrations
 python manage.py migrate
  ```
+after that  you can file table of question  with insertion  in bd.txt
 Run the Development Server:
 
  ```bash
