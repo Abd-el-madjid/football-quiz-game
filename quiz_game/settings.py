@@ -44,13 +44,17 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', 
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'quiz_game.middleware.DebugMiddleware',
 ]
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login_signup'
 
 ROOT_URLCONF = 'quiz_game.urls'
 
@@ -97,7 +101,10 @@ DATABASES = {
     }
 }
 
-
+# You can use other engines like 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 1209600  # Session timeout in seconds (e.g., 2 weeks)
+SESSION_SAVE_EVERY_REQUEST = True
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -151,4 +158,5 @@ AUTH_USER_MODEL = 'quiz.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
     'quiz.backends.CustomUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]

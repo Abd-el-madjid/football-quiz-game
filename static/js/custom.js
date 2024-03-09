@@ -16,9 +16,10 @@ document.getElementById("navbarDropdown").addEventListener('click', function () 
 
 
 
-
-
-
+function storeAnswer(questionId, answer) {
+    console.log(`Question ID: ${questionId}, Answer: ${answer}`);
+    document.getElementById('answer_h_' + questionId).value = answer;
+}
 
 
 
@@ -98,14 +99,14 @@ $(document).ready(function () {
 
 
 $("#quiz-form").submit(function (e) {
-    e.preventDefault();  // Prevent the default form submission
+    e.preventDefault();  
 
-    // Get the form action URL from the form's action attribute
     var formUrl = $(this).attr("action");
 
     // Get the form data
     var formData = $(this).serialize();
-
+  console.log("Form URL:", formUrl);
+    console.log("Form Data:", formData);
     // Submit the form asynchronously using AJAX
     $.ajax({
         type: "POST",

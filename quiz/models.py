@@ -6,20 +6,8 @@ class CustomUser(AbstractUser):
     name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     
-    # Set USERNAME_FIELD to 'email'
     USERNAME_FIELD = 'email'
-    
-    # Update REQUIRED_FIELDS to include 'email'
     REQUIRED_FIELDS = ['name']
-
-    # Add the following lines to remove unnecessary fields
-    last_login = None
-    is_superuser = None
-    first_name = None
-    last_name = None
-    is_staff = None
-    is_active = None
-    date_joined = None
 
     def __str__(self):
         return self.email
