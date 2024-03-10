@@ -53,6 +53,7 @@ DATABASES = {
     }
 }
 
+also update  in info.py  EMAIL_HOST_PASSWORD  and EMAIL_HOST_USER with the one you send email by  whene  reset password
 Create MySQL Schema:
 
 In your MySQL database, create a schema named 'quiz'.
