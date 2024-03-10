@@ -13,14 +13,13 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
         <link href="{% static 'css/login.css' %}" rel="stylesheet">
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet">
 
 
-    <title>Modern Login Page | AsmrProg</title>
+    <title>Quiz Game</title>
 </head>
 
 <body>
@@ -38,6 +37,7 @@
                 <input type="text" placeholder="Name"  id="name" name="name" required>
                 <input type="email" placeholder="Email" id="email_signup" name="email" required>
                 <input type="password" placeholder="Password" id="pass_signup" name="password" required>
+                <div id="error-list"></div>
             <button type="submit" >Sign Up</button>
             </form>
         </div>
@@ -46,11 +46,12 @@
                 {% csrf_token %}
                 <h1>Sign In</h1>
                 <input type="hidden" name="form_type" value="login-form">
-               
                 <span>or use your email password</span>
                 <input type="email" placeholder="Email " id="email_login" name="email" required>
                 <input type="password" placeholder="Password" id="pass_login" name="password" required>
-            <button type="submit" >Sign In</button>
+
+                <a href="{% url 'password_reset' %}">Forget Your Password?</a>
+                <button type="submit" >Sign In</button>
             </form>
         </div>
         <div class="toggle-container">
@@ -68,44 +69,68 @@
             </div>
         </div>
     </div>
-    <!-- <script>
-        const socket = new WebSocket('ws://' + window.location.host + '/ws/auth/');
-
-        function sendLoginData() {
-            const email = document.getElementById('email_login').value;
-            const password = document.getElementById('pass_login').value;
-
-            socket.send(JSON.stringify({
-                'type': 'login',
-                'email': email,
-                'password': password,
-            }));
-        }
-
-                function sendsign_upData() {
-                        const email = document.getElementById('email_signup').value;
-                        const password = document.getElementById('pass_signup').value;
-                        const name = document.getElementById('name').value;
-
-
-                        socket.send(JSON.stringify({
-                            'type': 'signup',
-                            'email': email,
-                            'password': password,
-                            'name':name,
-                        }));
-                    }
-
-        // Handle WebSocket messages if needed
-        socket.onmessage = function (e) {
-            const data = JSON.parse(e.data);
-            alert(data.message);  // Display the message received from the server
-        };
-    </script> -->
-
+ 
         <script src="{% static 'js/script.js' %}"></script>
 
 </body>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const passwordInput = document.getElementById("pass_signup");
+            const errorList = document.getElementById("error-list");
+
+            passwordInput.addEventListener("input", function () {
+                // Reset error list before validation
+                errorList.innerHTML = "";
+
+                // Password validation checks
+                const password = passwordInput.value;
+                const errors = [];
+
+                // Check if the password is too similar to the email
+                const emailInput = document.getElementById("name");
+                if (password.includes(emailInput.value)) {
+                    errors.push("Your password can't be too similar to your email information.");
+                }
+
+                // Check if the password contains at least 8 characters
+                if (password.length < 8) {
+                    errors.push("Your password must contain at least 8 characters.");
+                }
+
+                // Check if the password is entirely numeric
+                if (/^\d+$/.test(password)) {
+                    errors.push("Your password can't be entirely numeric.");
+                }
+
+                // Display errors if any
+                if (errors.length > 0) {
+                    const errorUl = document.createElement("ul");
+                    errors.forEach(function (error) {
+                        const li = document.createElement("li");
+                        li.textContent = error;
+                        li.className = "li_error"; // Add the class 'li_error'
+                        errorUl.appendChild(li);
+                    });
+
+                    errorList.appendChild(errorUl);
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
                             {% for message in messages %}
                             {% if message.tags == 'error' %}
                             <script type="text/javascript">

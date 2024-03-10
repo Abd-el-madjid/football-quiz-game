@@ -443,7 +443,7 @@ h5,
 }
 
 .site-navbar .site-navigation .site-menu>li {
-  width: 100%;
+  /* width: 100%; */
   display: inline-block;
 }
 

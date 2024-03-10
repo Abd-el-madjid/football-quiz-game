@@ -1,6 +1,8 @@
+from .models import CustomUser
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
-from .models import CustomUser
+from django.db import connection
 
 
 class CustomUserBackend(ModelBackend):
@@ -9,8 +11,18 @@ class CustomUserBackend(ModelBackend):
         try:
             user = User.objects.get(email=username)
         except User.DoesNotExist:
+            print(f"User with email {username} does not exist.")
             return None
 
+        stored_hashed_password = user.password
+        print(
+            f"Stored Hashed Password in CustomUserBackend: {stored_hashed_password}")
+
         if user.check_password(password):
+            print(f"User {username} authenticated successfully.")
             return user
-        return None
+        else:
+            print(f"User {username} authentication failed. Incorrect password.")
+            return None
+
+

@@ -12,6 +12,8 @@ from django.utils import timezone
 import random
 
 from .models import CustomUser, Question, Game
+from .backends import CustomUserBackend
+from django.contrib.auth.hashers import make_password
 
 def login_signup_view(request):
     if request.method == 'POST':
@@ -20,12 +22,18 @@ def login_signup_view(request):
         if form_type == 'login-form':
             email = request.POST['email']
             password = request.POST['password']
-            user = authenticate(request, username=email, password=password)
+            backend = CustomUserBackend()
+            user = backend.authenticate(request, username=email, password=password)
+            
+            print(
+                f"Email: {email}, Password: {password}, Hashed Password: {user.password if user else 'N/A'}, Authenticated User: {user}")
 
             if user:
                 auth_login(request, user)
+                messages.success(request, 'welcome back ')
                 return redirect('home')
             else:
+                messages.error(request, 'wrong password or email')
                 return render(request, 'login.html', {'login_error': True})
 
         elif form_type == 'signup-form':
@@ -36,13 +44,17 @@ def login_signup_view(request):
             if CustomUser.objects.filter(email=email).exists():
                 return render(request, 'login.html', {'signup_error': True, 'error_message': 'User with this email already exists.'})
 
-            hashed_password = make_password(password)
+            
             user = CustomUser.objects.create_user(
-                username=email, name=name, email=email, password=hashed_password)
+                username=email, name=name, email=email, password=password)
 
             auth_login(request, user, backend='quiz.backends.CustomUserBackend')
+            messages.success(
+                request, 'welcome , you have been created your account  successfully')
             return redirect(reverse('home'))
         else:
+            messages.error(
+                request, 'Invalid form submission. Please check the form fields.')
             return render(request, 'login.html', {'signup_error': True, 'error_message': 'Invalid form submission. Please check the form fields.'})
 
     return render(request, 'login.html')
@@ -70,11 +82,10 @@ def home(request):
     return render(request, 'home.html', {'user_scores': user_scores, 'name': name})
 
 
-def login(request):
-    return render(request, 'login.html')
+def reset_password_view(request):
+    return render(request, 'reset_password.html')
 
 
-@login_required
 def game(request):
     name = None
     if request.user.is_authenticated:
@@ -149,7 +160,8 @@ def game(request):
                 result_message = score
                 return JsonResponse({'result_message': result_message, 'result_data': result_data})
 
-    return render(request, 'game.html', {'questions': random_questions, 'score': score, 'name': name})
+        return render(request, 'game.html', {'questions': random_questions, 'score': score, 'name': name})
+    return redirect('login_signup')
 
 
 # @login_required
@@ -215,7 +227,11 @@ def game(request):
 #     return render(request, 'game.html', {'questions': random_questions, 'score': score, 'name': name})
 
 def logout_view(request):
-    logout(request)
+    if request.user.is_authenticated:
+        logout(request)
+        messages.success(request, 'You have been logged out successfully.')
+    else:
+        messages.warning(request, 'You are not logged in.')
     # Optional: add a logout message
     messages.success(request, 'You have been logged out.')
     return redirect('home')

@@ -3,67 +3,56 @@ CREATE SCHEMA 'quiz';
 -- Connect to the database
 USE quiz;
 
--- show table
+-- Create the 'users' table
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
 
-SELECT * FROM quiz.quiz_question;
+-- Create the 'questions' table
+CREATE TABLE questions (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    question_text TEXT NOT NULL,
+    option_a VARCHAR(255) NOT NULL,
+    option_b VARCHAR(255) NOT NULL,
+    option_c VARCHAR(255) NOT NULL,
+    option_d VARCHAR(255) NOT NULL,
+    correct_option CHAR(1) NOT NULL
+);
+
+-- Create the 'games' table
+CREATE TABLE games (
+    game_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    score INT NOT NULL,
+    game_date DATE NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
 
 
+
+-- Insert data into the 'users' table
+INSERT INTO users (name, email, password) VALUES
+    ('John Doe', 'john.doe@example.com', 'password123'),
+    ('Alice Smith', 'alice.smith@example.com', 'securepass'),
+    ('Bob Johnson', 'bob.johnson@example.com', 'strongpassword');
 
 -- Insert data into the 'questions' table
-INSERT INTO quiz.quiz_question (question_text, option_a, option_b, option_c, option_d, correct_option) VALUES
+INSERT INTO questions (question_text, option_a, option_b, option_c, option_d, correct_option) VALUES
+    ('What is the capital of France?', 'Berlin', 'Paris', 'London', 'Madrid', 'B'),
+    ('Which planet is known as the Red Planet?', 'Earth', 'Mars', 'Jupiter', 'Venus', 'B'),
+    ('Who wrote "Romeo and Juliet"?', 'Charles Dickens', 'William Shakespeare', 'Jane Austen', 'Mark Twain', 'B'),
 	('Which Algerian player won the Ballon d''Or in 2019?', 'Riyad Mahrez', 'Sofiane Feghouli', 'Islam Slimani', 'Yacine Brahimi', 'A'),
     ('In which year did Algeria qualify for its first FIFA World Cup?', '1982', '1986', '1990', '1994', 'C'),
-    ('Who is known as the "Desert Fox" and played a crucial role in Algeria''s 2014 World Cup campaign?', 'Karim Ziani', 'Ryad Boudebouz', 'Saphir Taïder', 'Yacine Brahimi', 'D'),
-    ('Which Algerian football club has won the most domestic league titles?', 'JS Kabylie', 'CR Belouizdad', 'ES Sétif', 'MC Alger', 'A'),
-    ('In what year did Algeria win their first Africa Cup of Nations (AFCON) title?', '1980', '1990', '2000', '2010', 'B'),
-    ('Who is the all-time top scorer for the Algerian national football team?', 'Lakhdar Belloumi', 'Islam Slimani', 'Djamel Zidane', 'Rafik Saïfi', 'B'),
-    ('Which Algerian goalkeeper played a key role in the 2014 FIFA World Cup and was named Best African Goalkeeper in 2015?', 'Rais M\'Bolhi', 'Cédric Si Mohamed', 'Faouzi Chaouchi', 'Mohamed Lamine Zemmamouche', 'A'),
-    ('In which city is the Stade du 5 Juillet 1962, one of the largest stadiums in Algeria, located?', 'Algiers', 'Oran', 'Constantine', 'Annaba', 'A'),
-    ('Who is the current captain of the Algerian national football team?', 'Riyad Mahrez', 'Yacine Brahimi', 'Islam Slimani', 'Sofiane Feghouli', 'A'),
-    ('Which Algerian player was nicknamed the "Algerian Maradona" and had a successful career at AS Monaco and Chelsea?', 'Rachid Mekhloufi', 'Lakhdar Belloumi', 'Mustapha Zitouni', 'Mourad Meghni', 'D'),
-    ('In what year did Algeria make its debut in the FIFA World Cup?', '1970', '1982', '1998', '2002', 'B'),
-    ('Which Algerian club won the CAF Champions League in 2014?', 'ES Sétif', 'CR Belouizdad', 'JS Kabylie', 'MC Alger', 'A'),
-    ('Who is the Algerian footballer known for his impressive performances at Leicester City, helping them win the Premier League in the 2015-2016 season?', 'Rachid Ghezzal', 'Riyad Mahrez', 'Islam Slimani', 'Sofiane Feghouli', 'B'),
-    ('Which Algerian player won the Golden Boot in the English Premier League during the 2015-2016 season?', 'Islam Slimani', 'Sofiane Feghouli', 'Riyad Mahrez', 'Rachid Ghezzal', 'C'),
-    ('In which year did Algeria host the Africa Cup of Nations (AFCON) for the first time?', '1990', '2002', '2010', '2019', 'A'),
-    ('Who is the Algerian forward known for his prolific goal-scoring record at FC Porto and was part of the Algerian squad that won the 2019 AFCON?', 'Yacine Brahimi', 'Sofiane Feghouli', 'Islam Slimani', 'Riyad Mahrez', 'A'),
-    ('Which Algerian club won the CAF Confederation Cup in 2017?', 'MC Alger', 'JS Kabylie', 'USM Alger', 'CR Belouizdad', 'C'),
-    ('In what year did Algeria make its first appearance in the UEFA European Championship (Euro)?', '2000', '2004', '2008', '2016', 'D'),
-    ('Who is the Algerian midfielder known for his time at Tottenham Hotspur and his impressive performances in the English Premier League?', 'Adlène Guedioura', 'Nabil Bentaleb', 'Ryad Boudebouz', 'Saphir Taïder', 'B'),
-    ('Which Algerian goalkeeper is considered a legend for his performances at the 1982 FIFA World Cup and later played for French club Marseille?', 'Mohamed Lamine Zemmamouche', 'Cédric Si Mohamed', 'Faouzi Chaouchi', 'Nacim Dziri', 'D'),
-    ('In which city is the Stade Mustapha Tchaker, the home stadium of the Algerian national football team, located?', 'Blida', 'Constantine', 'Oran', 'Tizi Ouzou', 'A'),
-    ('Who is the Algerian defender known for his long and successful career at FC Barcelona, winning numerous domestic and international titles?', 'Madjer', 'Rabah Madjer', 'Bougherra', 'Rafik Halliche', 'C'),
-    ('In what year did Algeria win its second Africa Cup of Nations (AFCON) title?', '1990', '2019', '2004', '1988', 'B'),
-    
-    ('Who won the 2020 UEFA European Championship Golden Boot?', 'Cristiano Ronaldo', 'Kylian Mbappe', 'Raheem Sterling', 'Harry Kane', 'D'),
-    ('In which year did Brazil last win the FIFA World Cup?', '2002', '2006', '2010', '2014', 'A'),
-    ('Who is the all-time top scorer in the history of the Argentina national football team?', 'Diego Maradona', 'Lionel Messi', 'Gabriel Batistuta', 'Hernan Crespo', 'B'),
-    ('Which country hosted the 2018 FIFA World Cup?', 'Russia', 'Germany', 'Brazil', 'France', 'A'),
-    ('Who won the 2018 FIFA Ballon d''Or?', 'Luka Modric', 'Cristiano Ronaldo', 'Lionel Messi', 'Mohamed Salah', 'A'),
-    ('In what year did England win their only FIFA World Cup?', '1962', '1970', '1966', '1974', 'C'),
-    ('Which African country has won the most Africa Cup of Nations (AFCON) titles?', 'Cameroon', 'Nigeria', 'Egypt', 'Ghana', 'C'),
-    ('Who is the manager of the French national football team as of 2022?', 'Didier Deschamps', 'Zinedine Zidane', 'Thierry Henry', 'Arsène Wenger', 'A'),
-    ('In the history of the UEFA Champions League, which club has won the most titles?', 'Barcelona', 'Real Madrid', 'Bayern Munich', 'AC Milan', 'B'),
-    ('Who scored the infamous "Hand of God" goal in the 1986 FIFA World Cup?', 'Diego Maradona', 'Pele', 'Johan Cruyff', 'Zinedine Zidane', 'A'),
-    
-    ('Which Algerian player is known for his skills as a playmaker and won the BBC African Footballer of the Year award in 2014?', 'Riyad Mahrez', 'Sofiane Feghouli', 'Yacine Brahimi', 'Nabil Bentaleb', 'C'),
-    ('In what year did Algeria first participate in the African Cup Winners'' Cup, a now-defunct football competition?', '1983', '1990', '1977', '2001', 'A'),
-    ('Who is the Algerian goalkeeper who played for Tottenham Hotspur and Lecce, among other clubs, during his career?', 'Rais M''Bolhi', 'Cédric Si Mohamed', 'Faouzi Chaouchi', 'Nacim Dziri', 'B'),
-    ('In which city did Algeria host the 2004 Africa Cup of Nations?', 'Algiers', 'Oran', 'Constantine', 'Annaba', 'C'),
-    ('Who is the Algerian striker known for his goal-scoring prowess at Sporting CP and Leicester City?', 'Islam Slimani', 'Rachid Ghezzal', 'Baghdad Bounedjah', 'Sofiane Feghouli', 'A'),
-    ('In what year did Algeria win its first Olympic gold medal in football?', '1984', '1992', '2000', '2016', 'A'),
-    ('Which Algerian defender played a crucial role in Leicester City''s historic Premier League title win in the 2015-2016 season?', 'Riyad Mahrez', 'Islam Slimani', 'Rachid Ghezzal', 'Riyad Mahrez', 'D'),
-    ('In which year did Algeria reach the final of the Africa Cup of Nations for the first time?', '1984', '1988', '1996', '2019', 'B'),
-    ('Who is the Algerian midfielder known for his time at FC Porto and won the Golden Boy award in 2010?', 'Ryad Boudebouz', 'Saphir Taïder', 'Yacine Brahimi', 'Hassan Yebda', 'C'),
-    ('In what year did Algeria win the UNAF U-23 Championship for the first time?', '2010', '2015', '2018', '2021', 'D'),
-    
-    ('Which Italian football club is known as "The Old Lady"?', 'AC Milan', 'Inter Milan', 'Juventus', 'AS Roma', 'C'),
-    ('In what year did Germany last win the FIFA World Cup?', '2002', '2010', '2014', '2018', 'C'),
-    ('Who is the all-time top scorer for the Spanish national football team?', 'David Villa', 'Fernando Torres', 'Fernando Hierro', 'David Silva', 'A'),
-    ('Which country won the first FIFA World Cup in 1930?', 'Argentina', 'Uruguay', 'Brazil', 'Italy', 'B'),
-    ('Who won the 2021 Copa America Golden Ball award?', 'Neymar', 'Lionel Messi', 'Gabriel Jesus', 'Lautaro Martinez', 'B'),
-    ('In which city is the famous football stadium Camp Nou located?', 'Madrid', 'Barcelona', 'Milan', 'Manchester', 'B'),
-    ('Who holds the record for the most goals scored in a single calendar year?', 'Lionel Messi', 'Cristiano Ronaldo', 'Pele', 'Zlatan Ibrahimovic', 'A'),
-    ('In what year did the Union of European Football Associations (UEFA) hold its first European Championship?', '1960', '1972', '1984', '1996', 'A'),
-    ('Which country won the 2016 UEFA European Championship?', 'Germany', 'France', 'Portugal', 'Spain', 'C'),
-    ('Who is the manager of the Liverpool FC as of 2022?', 'Jurgen Klopp', 'Pep Guardiola', 'Zinedine Zidane', 'Carlo Ancelotti', 'A');
+    ('Who is known as the "Desert Fox" and played a crucial role in Algeria''s 2014 World Cup campaign?', 'Karim Ziani', 'Ryad Boudebouz', 'Saphir Taïder', 'Yacine Brahimi', 'D');
+;
+
+
+
+-- Insert data into the 'games' table
+INSERT INTO games (user_id, score, game_date) VALUES
+    (1, 80, '2024-03-07'),
+    (2, 95, '2024-03-08'),
+    (3, 70, '2024-03-09');
