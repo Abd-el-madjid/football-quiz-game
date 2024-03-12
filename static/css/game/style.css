@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sen:wght@400;700;800&display=swap');
+
+:root {
+    --primary-color: #ee1e46;
+    --secondary-color: rgb(210, 210, 210);
+    --text-color: rgb(255, 255, 255);
+    --field-color: rgb(255, 255, 255);
+    --black-color: rgb(52, 52, 52);
+
+}
+
+
+
+body {
+    backdrop-filter: blur(8px) !important;
+
+    font-family: "Jost";
+    width: 100%;
+}
+
+main {
+    padding-top: 100px;
+    /* margin-top: 31px; */
+    padding: 100px 50px 50px 50px;
+    backdrop-filter: blur(8px) !important;
+    background-size: cover;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+.step-bar {
+    backdrop-filter: blur(8px) !important;
+
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+    background-color: rgb(26, 59, 137);
+}
+
+.step-bar .bar {
+    background-color: var(--secondary-color);
+    width: 18%;
+    height: 30px;
+    overflow: hidden;
+
+}
+
+.step-bar .bar .fill {
+    background-color: var(--primary-color);
+    transition: 0.5s linear;
+    width: 0;
+    height: 100%;
+}
+
+form {
+    border-radius: 60px;
+    background: linear-gradient(to left, #09060680, #00000029);
+    backdrop-filter: blur(8px) !important;
+    display: grid;
+    height: 100%;
+}
+
+.wrapper {
+    padding: 20px 0 20px 0;
+    width: 85%;
+    margin: 0 auto;
+    height: 90%;
+}
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+.quiz-question {
+    border: SOLID 2px var(--field-color);
+    border-radius: 10px;
+    background-color: transparent;
+    width: 100%;
+    height: 100px;
+    position: relative;
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding: 0 40px 0 0;
+    max-height: 200px;
+}
+
+.quiz-question::before {
+    content: "";
+    display: inline-block;
+    height: 102%;
+    min-width: 25px;
+    border-radius: 20px;
+    background-color: var(--field-color);
+    position: relative;
+    left: -2px;
+    margin-right: 40px;
+}
+
+fieldset {
+    min-height: 65%;
+    margin-bottom: 15px !important;
+    margin-top: 20px !important;
+    flex: 1;
+    overflow-y: scroll;
+    max-height: 70%;
+}
+
+.radio-field {
+    border: 120px #FCE4EC;
+    width: 100%;
+    height: 65px;
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.radio-field input {
+    -webkit-appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    border: solid 2px transparent;
+    transition: 0.5s;
+}
+
+.radio-field label {
+    font-size: 18px;
+    color: var(--black-color);
+    font-weight: bold;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.radio-field label::before {
+    content: "X";
+    width: 70px;
+    height: 100%;
+    display: inline-block;
+    background-color: var(--secondary-color);
+    overflow: hidden;
+    margin-right: 50px;
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    display: grid;
+    place-items: center;
+    transition: 0.5s;
+}
+
+.radio-field .op1::before {
+    content: "A";
+}
+
+.radio-field .op2::before {
+    content: "B";
+}
+
+.radio-field .op3::before {
+    content: "C";
+}
+
+.radio-field .op4::before {
+    content: "D";
+}
+
+.radio-field input:checked {
+    border-color: var(--primary-color);
+}
+
+.radio-field input:checked::before {
+    content: "";
+    position: absolute;
+    border-left: solid 3px var(--primary-color);
+    border-bottom: solid 3px var(--primary-color);
+    top: 28px;
+    right: 30px;
+    width: 25px;
+    height: 15px;
+    transform: rotate(-45deg);
+    opacity: 0;
+    z-index: 1000;
+}
+
+.radio-field input:checked~label {
+    color: var(--primary-color);
+}
+
+.radio-field input:checked~label::before {
+    background-color: var(--primary-color);
+}
+
+
+
+
+.next-prev {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.next-prev button {
+    display: flex;
+    border: solid 1px var(--field-color);
+    border-radius: 6px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 2px 21px 0px rgba(0, 0, 0, 0.03);
+    min-width: 234px;
+    height: 72px;
+    font-size: 18px;
+    color: rgb(124, 120, 120);
+    font-weight: bold;
+    text-transform: uppercase;
+    align-items: center;
+    justify-content: center;
+}
+
+.next-prev .next {
+    display: flex;
+    background-color: var(--primary-color);
+    color: rgb(255, 255, 255);
+    border-color: transparent;
+    align-items: center;
+    justify-content: center;
+}
+
+.next-prev button i {
+    margin: 0 10px;
+    position: relative;
+    top: 1;
+}
+
+
+
+
+
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+
+
+
+.avatar {
+    width: 88%;
+    /* margin-top: 70px; */
+}
+
+#error div {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.custom-alert.alert-success {
+    background: #43be5f;
+}
+
+.custom-alert.alert-error {
+    border: 1px solid white;
+    background: #E61F57;
+    z-index: 1025000;
+}
+
+.custom-alert {
+    color: #fff;
+    min-height: 67px;
+    width: 560px;
+    max-width: 90%;
+    border-radius: 12px;
+    padding: 16px 22px 17px 20px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100000;
+}
+
+
+.custom-alert .icon__wrapper {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.253);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-alert .icon__wrapper span {
+    font-size: 21px;
+    color: #fff;
+}
+
+.custom-alert p {
+    color: #fff;
+    font-family: Verdana;
+    margin-left: 10px;
+}
+
+.custom-alert p a,
+.custom-alert p a:visited,
+.custom-alert p a:active {
+    color: #fff;
+}
+
+.custom-alert .open {
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.custom-alert .close,
+.custom-alert .open {
+    color: #fff;
+    transition: transform 0.5s;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.custom-alert .close:hover,
+.custom-alert .open:hover {
+    transform: scale(1.3);
+}

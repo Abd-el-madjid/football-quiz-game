@@ -13,38 +13,35 @@
     <!-- images-->
     <style>
         main {
-            background-image: url('{% static "bg_1.jpg" %}');
-
+            background-image: url('/media/images/bg_1.jpg');
 
         }
     </style>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="{% static 'css/general/icons_google.css' %}" rel="stylesheet">
+
     <!-- fonts -->
-    <link href="{% static 'css/font.css' %}" rel="stylesheet">
+    <link href="{% static 'css/general/font.css' %}" rel="stylesheet">
 
     <!-- fontawesome 5 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-    <link href="{% static 'css/fontawesome.css' %}" rel="stylesheet">
+    <link href="{% static 'css/general/fonts/fontawesome.css' %}" rel="stylesheet">
 
     <!-- bootstrap 5 -->
 
 
     <!-- Custom Css Files -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-        <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'css/game/style.css' %}" rel="stylesheet">
 
 
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'css/game/responsive.css' %}" rel="stylesheet">
 
-    <link href="{% static 'css/animation.css' %}" rel="stylesheet">
+    <link href="{% static 'css/game/animation.css' %}" rel="stylesheet">
 
-    <link href="{% static 'css/bootstrap2.css' %}" rel="stylesheet">
-    <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet">
+    <link href="{% static 'css/general/bootstrap2.css' %}" rel="stylesheet">
+    <link href="{% static 'css/general/jquery-ui.css' %}" rel="stylesheet">
 
-    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link href="{% static 'css/home/home.css' %}" rel="stylesheet">
     <!--Result Css-->
-    <link href="{% static 'css/result_style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/game/result_style.css' %}" rel="stylesheet">
 
 </head>
 
@@ -55,7 +52,7 @@
             <div class="d-flex align-items-center">
                 <div class="site-logo">
                     <a href="{% url 'home' %}">
-                        <img src=" {% static 'logo.png' %}" alt="logo">
+                        <img src="/media/images/logo.png" alt="logo">
 
                     </a>
                 </div>
@@ -140,22 +137,28 @@
                             <!-- ...rest of the form ... -->
                               {% if forloop.first %}
                             <div class="next-prev">
-                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question<i
-                                        class="fa-solid fa-arrow-right"></i></button>
+                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question
+                                    <i class="material-symbols-outlined">arrow_forward</i>
+                                </button>
                             </div>
                             {% elif forloop.last %}
                             <div class="next-prev">
-                                <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>Previous
-                                    Question</button>
-                                <button class="next" type="submit" id="step{{ forloop.counter }}btn">Submit<i
-                                        class="fa-solid fa-arrow-right"></i></button>
+                                <button class="prev" type="button">             
+                                                           <i class="material-symbols-outlined">arrow_back</i>
+                                                           Previous Question</button>
+                                <button class="next" type="submit" id="step{{ forloop.counter }}btn">Submit
+                                    <i class="material-symbols-outlined">arrow_forward</i>
+                                </button>
                             </div>
                             {% else %}
                             <div class="next-prev">
-                                <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>Previous
-                                    Question</button>
-                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question<i
-                                        class="fa-solid fa-arrow-right"></i></button>
+                                <button class="prev" type="button">   
+                                    <i class="material-symbols-outlined">arrow_back</i>
+                                    Previous Question
+                                </button>
+                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question
+                                    <i class="material-symbols-outlined">arrow_forward</i>
+                                </button>
                             </div>
                             {% endif %}
                         </section>
@@ -163,74 +166,15 @@
                     </div>
                 </form>
 
-                <!-- <form method="post" action="{% url 'game' %}" id="quiz-form" data-url="{% url 'game' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="form_type" value="quiz-form">
-
-                    {% for question_id in question_ids %}
-                        <input type="hidden" name="question_h_{{ question_id}}" value="{{ question_id}}">
-
-                    <input type="hidden" name="answer_h_{{ question_id }}" value="" id="answer_h_{{ question_id }}">
-                    {% endfor %}
-
-                    <div class="wrapper show-section">
-                        {% for question in questions %}
-                        <section class="steps">
-                            <div class="quiz-question">
-                                {{ question.question_text }}
-                            </div>
-                            <fieldset id="question_{{ question.id }}">
-                                <div class="radio-field bounce-left">
-                                    <input type="radio" name="answer_{{ question.id }}" id="answer_{{ question.id }}" value="A" onclick="storeAnswer('{{ question.id }}', 'A')">
-                                    <label class="op1">{{ question.option_a }}</label>
-                                </div>
-                               
-                                <div class="radio-field bounce-left">
-                                    <input type="radio" name="answer_{{ question.id }}" id="answer_{{ question.id }}"  value="B" onclick="storeAnswer('{{ question.id }}', 'B')">
-                                    <label class="op2">{{ question.option_b }}</label>
-                                </div>
-                                <div class="radio-field bounce-left">
-                                    <input type="radio" name="answer_{{ question.id }}" id="answer_{{ question.id }}"  value="C" onclick="storeAnswer('{{ question.id }}', 'C')">
-                                    <label class="op3">{{ question.option_c }}</label>
-                                </div>
-                                <div class="radio-field bounce-left">
-                                    <input type="radio" name="answer_{{ question.id }}" id="answer_{{ question.id }}"  value="D" onclick="storeAnswer('{{ question.id }}', 'D')">
-                                    <label class="op4">{{ question.option_d }}</label>
-                                </div>
-                            </fieldset>
-                            {% if forloop.first %}
-                            <div class="next-prev">
-                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question<i
-                                        class="fa-solid fa-arrow-right"></i></button>
-                            </div>
-                            {% elif forloop.last %}
-                            <div class="next-prev">
-                                <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>Previous
-                                    Question</button>
-                                <button class="next" type="submit" id="step{{ forloop.counter }}btn">Submit<i
-                                        class="fa-solid fa-arrow-right"></i></button>
-                            </div>
-                            {% else %}
-                            <div class="next-prev">
-                                <button class="prev" type="button"><i class="fa-solid fa-arrow-left"></i>Previous
-                                    Question</button>
-                                <button class="next" type="button" id="step{{ forloop.counter }}btn">Next Question<i
-                                        class="fa-solid fa-arrow-right"></i></button>
-                            </div>
-                            {% endif %}
-                        </section>
-                        {% endfor %}
-                    </div>
-                </form> -->
-
+              
             </div>
             <div class="col-md-4 tab-none">
-                <img class="avatar" src="{% static 'avatar.png' %}" alt="avatar">
+                <img class="avatar" src=" /media/images/avatar.png" alt="avatar">
             </div>
         </div>
         <!-- result -->
         <div class="loadingresult">
-            <img src=" {% static 'loading.gif' %}" alt="loading">
+            <img src="/media/images/loading.gif" alt="loading">
         </div>
         <div class="result_page  ">
             <div class="result_inner">
@@ -259,27 +203,18 @@
 
                         <!-- Details section -->
                         <div id="details-container" class="details-container non">
-                            <!-- Cloned templates will be appended here -->
                         </div>
 
                         <div id="details-section" class="details-section template non">
                             <h3>Details:</h3>
-                            <!-- <ul class="list-group">
-                                <li class="list-group-item questionText">Question: Placeholder Question</li>
-                                <li class="list-group-item correctAnswer"><span
-                                        class="material-symbols-outlined">done</span> <span
-                                        class="letter correct_letter">A</span> Placeholder Correct Answer</li>
-                                <li class="list-group-item chosenAnswer"><span
-                                        class="material-symbols-outlined">close</span> <span
-                                        class="letter chosen_letter">A</span> Placeholder Chosen Answer</li>
-                            </ul> -->
+                         
                         </div>
 
                     </div>
                 </div>
 
                 <!-- rectangle -->
-                <img class="behind_bg" src="{% static 'bh-clip.png' %}" alt="rectangle">
+                <img class="behind_bg" src="/media/images/bh-clip.png" alt="rectangle">
             </div>
         </div>
 
@@ -288,18 +223,17 @@
     <div id="error"></div>
     <div class="main"></div>
     <!-- bootstrap 5 -->
-    <script src="{% static 'js/Bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/general/Bootstrap/bootstrap.min.js' %}"></script>
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 
-    <script src="{% static 'js/jQuery/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static 'js/general/jQuery/jquery-3.6.3.min.js' %}"></script>
 
     <!-- Result JS -->
-    <script src="{% static 'js/result.js' %}"></script>
+    <script src="{% static 'js/game/result.js' %}"></script>
 
     <!-- Custom js -->
-    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/game/custom.js' %}"></script>
 
 </body>
 <script>
