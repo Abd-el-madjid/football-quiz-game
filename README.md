@@ -24,7 +24,8 @@ Navigate to the Project Directory:
 
  ```bash
 
-cd quiz_game
+cd football-quiz-game
+
  ```
 Install Dependencies from requirements.txt:
 
